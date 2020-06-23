@@ -1,13 +1,12 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SSCMS;
 using SSCMS.Dto;
 using SSCMS.Repositories;
 using SSCMS.Services;
 using SSCMS.Utils;
 
-namespace Hits.Controllers.Admin
+namespace SSCMS.Hits.Controllers.Admin
 {
     [Authorize(Roles = AuthTypes.Roles.Administrator)]
     [Route(Constants.ApiAdminPrefix)]

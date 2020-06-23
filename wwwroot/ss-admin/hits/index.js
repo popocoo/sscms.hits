@@ -1,4 +1,4 @@
-var $url = "/admin/hits/settings"
+var $url = "/hits/settings"
 
 var data = utils.init({
   siteId: utils.getQueryInt("siteId"),

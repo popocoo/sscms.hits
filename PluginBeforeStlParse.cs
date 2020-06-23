@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using SSCMS;
 using SSCMS.Enums;
 using SSCMS.Plugins;
 
-namespace Hits
+namespace SSCMS.Hits
 {
     public class PluginBeforeStlParse : IPluginBeforeStlParse
     {

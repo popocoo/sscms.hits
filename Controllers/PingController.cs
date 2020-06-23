@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace Hits.Controllers
+namespace SSCMS.Hits.Controllers
 {
     [Route("api/hits/ping")]
     public class PingController : ControllerBase

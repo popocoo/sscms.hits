@@ -1,4 +1,4 @@
-﻿namespace Hits.Controllers.Admin
+﻿namespace SSCMS.Hits.Controllers.Admin
 {
     public partial class SettingsController
     {

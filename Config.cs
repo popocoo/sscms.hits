@@ -1,4 +1,4 @@
-﻿namespace Hits
+﻿namespace SSCMS.Hits
 {
     public class Config
     {

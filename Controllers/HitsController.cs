@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using SSCMS.Dto;
 using SSCMS.Repositories;
 
-namespace Hits.Controllers
+namespace SSCMS.Hits.Controllers
 {
     [Route("api/hits")]
     public class HitsController : ControllerBase
@@ -19,18 +18,13 @@ namespace Hits.Controllers
         }
 
         [HttpGet, Route("{siteId:int}/{channelId:int}/{contentId:int}")]
-        public async Task<ActionResult<BoolResult>> Hits(int siteId, int channelId, int contentId)
+        public async Task Hits(int siteId, int channelId, int contentId)
         {
             var configInfo = await _pluginConfigRepository.GetConfigAsync<Config>(Utils.PluginId, siteId) ?? new Config();
 
             //var tableName = Context.ContentApi.GetTableName(siteId, channelId);
 
             await AddContentHitsAsync(siteId, channelId, contentId, configInfo);
-
-            return new BoolResult
-            {
-                Value = true
-            };
         }
 
         private async Task AddContentHitsAsync(int siteId, int channelId, int contentId, Config config)

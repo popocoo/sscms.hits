@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Hits
+﻿namespace SSCMS.Hits
 {
     public static class Utils
     {
