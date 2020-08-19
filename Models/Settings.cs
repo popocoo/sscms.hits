@@ -1,6 +1,6 @@
-﻿namespace SSCMS.Hits
+﻿namespace SSCMS.Hits.Models
 {
-    public class Config
+    public class Settings
     {
         public bool IsHitsDisabled { get; set; }
 

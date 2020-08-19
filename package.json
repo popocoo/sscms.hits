@@ -25,7 +25,7 @@
     "permissions": {
       "site_hits": {
         "text": "内容点击量",
-        "type": "site"
+        "type": ["web", "wx"]
       }
     },
     "menus": {
@@ -33,7 +33,7 @@
         "text": "内容点击量",
         "iconClass": "ion-connection-bars",
         "link": "./hits/",
-        "type": "site",
+        "type": ["web", "wx"],
         "permissions": [
           "site_hits"
         ]

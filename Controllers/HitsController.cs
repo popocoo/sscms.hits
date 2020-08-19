@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using SSCMS.Hits.Abstractions;
+using SSCMS.Hits.Models;
 using SSCMS.Repositories;
 
 namespace SSCMS.Hits.Controllers
@@ -8,32 +10,32 @@ namespace SSCMS.Hits.Controllers
     [Route("api/hits")]
     public class HitsController : ControllerBase
     {
-        private readonly IPluginConfigRepository _pluginConfigRepository;
         private readonly IContentRepository _contentRepository;
+        private readonly IHitsManager _hitsManager;
 
-        public HitsController(IPluginConfigRepository pluginConfigRepository, IContentRepository contentRepository)
+        public HitsController(IContentRepository contentRepository, IHitsManager hitsManager)
         {
-            _pluginConfigRepository = pluginConfigRepository;
             _contentRepository = contentRepository;
+            _hitsManager = hitsManager;
         }
 
         [HttpGet, Route("{siteId:int}/{channelId:int}/{contentId:int}")]
         public async Task Hits(int siteId, int channelId, int contentId)
         {
-            var configInfo = await _pluginConfigRepository.GetConfigAsync<Config>(Utils.PluginId, siteId) ?? new Config();
+            var settings = await _hitsManager.GetSettingsAsync(siteId);
 
             //var tableName = Context.ContentApi.GetTableName(siteId, channelId);
 
-            await AddContentHitsAsync(siteId, channelId, contentId, configInfo);
+            await AddContentHitsAsync(siteId, channelId, contentId, settings);
         }
 
-        private async Task AddContentHitsAsync(int siteId, int channelId, int contentId, Config config)
+        private async Task AddContentHitsAsync(int siteId, int channelId, int contentId, Settings settings)
         {
-            if (siteId <= 0 || channelId <= 0 || contentId <= 0 || config.IsHitsDisabled) return;
+            if (siteId <= 0 || channelId <= 0 || contentId <= 0 || settings.IsHitsDisabled) return;
             var contentInfo = await _contentRepository.GetAsync(siteId, channelId, contentId);
             if (contentInfo == null) return;
 
-            if (config.IsHitsCountByDay)
+            if (settings.IsHitsCountByDay)
             {
                 var now = DateTime.Now;
 

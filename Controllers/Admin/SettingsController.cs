@@ -2,7 +2,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SSCMS.Dto;
-using SSCMS.Repositories;
+using SSCMS.Hits.Abstractions;
+using SSCMS.Hits.Models;
 using SSCMS.Services;
 using SSCMS.Utils;
 
@@ -15,25 +16,25 @@ namespace SSCMS.Hits.Controllers.Admin
         private const string Route = "hits/settings/{siteId:int}";
 
         private readonly IAuthManager _authManager;
-        private readonly IPluginConfigRepository _pluginConfigRepository;
+        private readonly IHitsManager _hitsManager;
 
-        public SettingsController(IAuthManager authManager, IPluginConfigRepository pluginConfigRepository)
+        public SettingsController(IAuthManager authManager, IHitsManager hitsManager)
         {
             _authManager = authManager;
-            _pluginConfigRepository = pluginConfigRepository;
+            _hitsManager = hitsManager;
         }
 
         [HttpGet, Route(Route)]
-        public async Task<ActionResult<Config>> GetConfig(int siteId)
+        public async Task<ActionResult<Settings>> GetConfig(int siteId)
         {
             if (!await _authManager.HasSitePermissionsAsync(siteId, "hits"))
             {
                 return Unauthorized();
             }
 
-            var configInfo = await _pluginConfigRepository.GetConfigAsync<Config>(Utils.PluginId, siteId) ?? new Config();
+            var settings = await _hitsManager.GetSettingsAsync(siteId);
 
-            return configInfo;
+            return settings;
         }
 
         [HttpPost, Route(Route)]
@@ -44,12 +45,12 @@ namespace SSCMS.Hits.Controllers.Admin
                 return Unauthorized();
             }
 
-            var configInfo = await _pluginConfigRepository.GetConfigAsync<Config>(Utils.PluginId, siteId) ?? new Config();
+            var settings = await _hitsManager.GetSettingsAsync(siteId);
 
-            configInfo.IsHitsDisabled = request.IsHitsDisabled;
-            configInfo.IsHitsCountByDay = request.IsHitsCountByDay;
+            settings.IsHitsDisabled = request.IsHitsDisabled;
+            settings.IsHitsCountByDay = request.IsHitsCountByDay;
 
-            await _pluginConfigRepository.SetConfigAsync(Utils.PluginId, siteId, configInfo);
+            await _hitsManager.SetSettingsAsync(siteId, settings);
 
             return new BoolResult
             {
