@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using SSCMS.Context;
 using SSCMS.Enums;
 using SSCMS.Hits.Abstractions;
+using SSCMS.Parse;
 using SSCMS.Plugins;
 
 namespace SSCMS.Hits.Core

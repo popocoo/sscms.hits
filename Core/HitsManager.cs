@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using SSCMS.Hits.Abstractions;
 using SSCMS.Hits.Models;
+using SSCMS.Plugins;
 using SSCMS.Repositories;
 using SSCMS.Services;
 

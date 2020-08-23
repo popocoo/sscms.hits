@@ -2,7 +2,7 @@
   "name": "hits",
   "displayName": "内容点击量插件",
   "description": "SSCMS 内容点击量插件",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "license": "GPL-3.0",
   "publisher": "sscms",
   "engines": {
@@ -19,7 +19,7 @@
     "url": "https://github.com/siteserver/sscms.hits"
   },
   "icon": "/ss-admin/hits/logo.svg",
-  "output": "bin/Release/netcoreapp3.1/publish",
+  "output": "",
   "main": "SSCMS.Hits.dll",
   "extensions": {
     "permissions": {
