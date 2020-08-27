@@ -3,6 +3,7 @@ var $url = "/hits/settings"
 var data = utils.init({
   siteId: utils.getQueryInt("siteId"),
   form: {
+    siteId: utils.getQueryInt("siteId"),
     isHitsDisabled:false,
     isHitsCountByDay:false
   }
@@ -13,7 +14,11 @@ var methods = {
     var $this = this;
 
     utils.loading(this, true);
-    $api.get($url + '/' + this.siteId).then(function (response) {
+    $api.get($url, {
+      params: {
+        siteId: this.siteId
+      }
+    }).then(function (response) {
       var res = response.data;
 
       $this.form.isHitsDisabled = res.isHitsDisabled;
@@ -29,7 +34,7 @@ var methods = {
     var $this = this;
 
     utils.loading(true);
-    $api.post($url + '/' + this.siteId, this.form).then(function (response) {
+    $api.post($url, this.form).then(function (response) {
       $this.$message.success('设置保存成功');
     }).catch(function (error) {
       utils.error($this, error);

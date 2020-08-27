@@ -5,9 +5,8 @@ namespace SSCMS.Hits.Abstractions
 {
     public interface IHitsManager
     {
-        string PluginId { get; }
         Task<Settings> GetSettingsAsync(int siteId);
 
-        Task<bool> SetSettingsAsync(int siteId, Settings settings);
+        Task SetSettingsAsync(int siteId, Settings settings);
     }
 }

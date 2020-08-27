@@ -1,35 +1,39 @@
 ﻿using System.Threading.Tasks;
 using SSCMS.Hits.Abstractions;
 using SSCMS.Hits.Models;
-using SSCMS.Plugins;
 using SSCMS.Repositories;
-using SSCMS.Services;
 
 namespace SSCMS.Hits.Core
 {
     public class HitsManager : IHitsManager
     {
-        private readonly IPlugin _plugin;
+        public const string PluginId = "sscms.hits";
+
         private readonly IPluginConfigRepository _pluginConfigRepository;
 
-        public HitsManager(IPluginManager pluginManager, IPluginConfigRepository pluginConfigRepository)
+        public HitsManager(IPluginConfigRepository pluginConfigRepository)
         {
             _pluginConfigRepository = pluginConfigRepository;
-            _plugin = pluginManager.Current;
         }
-
-        public string PluginId => _plugin.PluginId;
 
         public async Task<Settings> GetSettingsAsync(int siteId)
         {
-            var pluginId = _plugin.PluginId;
-            return await _pluginConfigRepository.GetConfigAsync<Settings>(pluginId, siteId) ?? new Settings();
+            var settings = new Settings
+            {
+                IsHitsDisabled =
+                    await _pluginConfigRepository.GetConfigAsync<bool>(PluginId, siteId,
+                        nameof(Settings.IsHitsDisabled)),
+                IsHitsCountByDay =
+                    await _pluginConfigRepository.GetConfigAsync<bool>(PluginId, siteId,
+                        nameof(Settings.IsHitsCountByDay))
+            };
+            return settings;
         }
 
-        public async Task<bool> SetSettingsAsync(int siteId, Settings settings)
+        public async Task SetSettingsAsync(int siteId, Settings settings)
         {
-            var pluginId = _plugin.PluginId;
-            return await _pluginConfigRepository.SetConfigAsync(pluginId, siteId, settings);
+            await _pluginConfigRepository.SetConfigAsync(PluginId, siteId, nameof(Settings.IsHitsDisabled), settings.IsHitsDisabled);
+            await _pluginConfigRepository.SetConfigAsync(PluginId, siteId, nameof(Settings.IsHitsCountByDay), settings.IsHitsCountByDay);
         }
     }
 }
