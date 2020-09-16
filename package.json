@@ -2,7 +2,7 @@
   "name": "hits",
   "displayName": "内容点击量插件",
   "description": "SSCMS 内容点击量插件",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "license": "GPL-3.0",
   "publisher": "sscms",
   "engines": {
@@ -21,6 +21,8 @@
   "icon": "/ss-admin/hits/logo.svg",
   "output": "",
   "main": "SSCMS.Hits.dll",
+  "applyToSites": true,
+  "applyToChannels": false,
   "extensions": {
     "permissions": {
       "site_hits": {
