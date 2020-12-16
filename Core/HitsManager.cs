@@ -21,10 +21,10 @@ namespace SSCMS.Hits.Core
             var settings = new Settings
             {
                 IsHitsDisabled =
-                    await _pluginConfigRepository.GetConfigAsync<bool>(PluginId, siteId,
+                    await _pluginConfigRepository.GetAsync<bool>(PluginId, siteId,
                         nameof(Settings.IsHitsDisabled)),
                 IsHitsCountByDay =
-                    await _pluginConfigRepository.GetConfigAsync<bool>(PluginId, siteId,
+                    await _pluginConfigRepository.GetAsync<bool>(PluginId, siteId,
                         nameof(Settings.IsHitsCountByDay))
             };
             return settings;
@@ -32,8 +32,8 @@ namespace SSCMS.Hits.Core
 
         public async Task SetSettingsAsync(int siteId, Settings settings)
         {
-            await _pluginConfigRepository.SetConfigAsync(PluginId, siteId, nameof(Settings.IsHitsDisabled), settings.IsHitsDisabled);
-            await _pluginConfigRepository.SetConfigAsync(PluginId, siteId, nameof(Settings.IsHitsCountByDay), settings.IsHitsCountByDay);
+            await _pluginConfigRepository.SetAsync(PluginId, siteId, nameof(Settings.IsHitsDisabled), settings.IsHitsDisabled);
+            await _pluginConfigRepository.SetAsync(PluginId, siteId, nameof(Settings.IsHitsCountByDay), settings.IsHitsCountByDay);
         }
     }
 }

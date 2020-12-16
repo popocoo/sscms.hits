@@ -24,7 +24,7 @@ var methods = {
       $this.form.isHitsDisabled = res.isHitsDisabled;
       $this.form.isHitsCountByDay = res.isHitsCountByDay;
     }).catch(function (error) {
-      utils.error($this, error);
+      utils.error(error);
     }).then(function () {
       utils.loading($this, false);
     });
@@ -37,7 +37,7 @@ var methods = {
     $api.post($url, this.form).then(function (response) {
       $this.$message.success('设置保存成功');
     }).catch(function (error) {
-      utils.error($this, error);
+      utils.error(error);
     }).then(function () {
       utils.loading($this, false);
     });
